@@ -2,6 +2,7 @@ const button = document.querySelector('button');
 const headingToChange= document.querySelector('.whisper');
 const form= document.querySelector('form');
 
+
 let i=0;
 function changeHeadingText (){
     console.log('i');
@@ -11,7 +12,9 @@ function changeHeadingText (){
 
 function makeInputtedText(){
     console.log('hello;lkasjdf;laskjdf;OIJEF');
-    headingToChange.textContent = input;
+    const stone= document.querySelector('.stone1').value;
+    headingToChange.textContent = stone;
+    event.preventDefault();
 }
 
 button.addEventListener('click', changeHeadingText);
