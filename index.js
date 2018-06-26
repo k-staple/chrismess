@@ -14,9 +14,9 @@ function changeHeadingText (){
 function makeInputtedText(){
     const stone= document.querySelector('.stone1').value;
     headingToChange.textContent = stone;
-    const regex= /space |mind |time |reality |power |soul/i
+    const regex= /.*space.*|.*mind.*|.*time.*|.*reality.*|.*power.*|.*soul.*/i
     event.preventDefault();
-    if (!(stone.includes(regex))){
+    if (!(regex.test(stone))){
         headingToggleDisappear.classList.remove('hid')
     }
 }
