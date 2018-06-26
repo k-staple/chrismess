@@ -3,17 +3,17 @@ const headingToChange= document.querySelector('.whisper');
 const form= document.querySelector('form');
 
 
-let i=0;
+let i=10;
 function changeHeadingText (){
     console.log('i');
     headingToChange.textContent = i;
-    i++;
+    if(i > 0) i--;
 }
 
 function makeInputtedText(){
-    console.log('hello;lkasjdf;laskjdf;OIJEF');
     const stone= document.querySelector('.stone1').value;
     headingToChange.textContent = stone;
+
     event.preventDefault();
 }
 
