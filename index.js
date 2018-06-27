@@ -1,7 +1,8 @@
 const button = document.querySelector('button');
 const headingToChange= document.querySelector('.whisper');
-
 const headingToggleDisappear = document.querySelector('.hid')
+
+const record = [];
 let i=10;
 
 function changeHeadingText (){
@@ -14,9 +15,19 @@ class App {
 
     constructor(){
         const form= document.querySelector('form');
+        const delButtons = document.querySelector('del');
+        const list = document.querySelector('#trove'); //from html already
+        
+        
         form.addEventListener('submit', (ev) => {
           ev.preventDefault();
-          this.handleSubmit(ev);
+          this.handleSubmit(ev, list);
+        });
+
+        //listen on html that is there from beginning
+        list.addEventListener('click', (ev) => {
+          ev.preventDefault();
+          this.handleDel(ev);
         });
     }
 
@@ -46,31 +57,35 @@ class App {
     }
 
     renderItem(gift){  
-    //generate html w a span for each property
-    const item = document.createElement('li');
-    item.classList.add('gem'); //new class created in this function
-    
-    //get list of prop
-    const properties = Object.keys(gift);
-    //loop over each prop
-    properties.forEach( (propertyName) => {
-        const span = this.renderProperty(propertyName, gift[propertyName]);
-        item.appendChild(span); 
-    });
+        //generate html w a span for each property
+        const item = document.createElement('li');
+        item.classList.add('gem'); //new class created in this function
+        
+        //get list of prop
+        const properties = Object.keys(gift);
+        //loop over each prop
+        properties.forEach( (propertyName) => {
+            const span = this.renderProperty(propertyName, gift[propertyName]);
+            item.appendChild(span); 
+        });
 
-    return item;
+        const del = document.createElement('button');
+        del.textContent = 'Remove';
+        del.classList.add('del');
+        item.appendChild(del);
+
+        return item;
     }
 
     revealHiddenMessage(stone) {
-    //reveal hidden message if doesn't send a stone
-    const regex= /.*space.*|.*mind.*|.*time.*|.*reality.*|.*power.*|.*soul.*/i;
-    if (!(regex.test(stone))){
-        headingToggleDisappear.classList.remove('hid');
-    }
+        //reveal hidden message if doesn't send a stone
+        const regex= /.*space.*|.*mind.*|.*time.*|.*reality.*|.*power.*|.*soul.*/i;
+            if (!(regex.test(stone))){
+                headingToggleDisappear.classList.remove('hid');
+            }
     }
 
-    handleSubmit(event){
-        event.preventDefault();  //should be first line
+    handleSubmit(event, list){
         const f= event.target;
         const stone = f.stone.value
         headingToChange.textContent = stone;
@@ -78,12 +93,15 @@ class App {
             stone: stone,
             person: f.sender.value,
         }
+       
+        record.push(gift);
 
         const item = this.renderItem(gift)  //CHANGE BELOW
 
         //select list and create list item
-        const list = document.querySelector('#trove'); //from html already
+        
         list.appendChild(item)
+
     /* const liItem = document.createElement('li');
         const spanStone = document.createElement('span')
         spanStone.textContent = stone;
@@ -98,6 +116,14 @@ class App {
         f.reset();
         f.stone.focus();
     }
+
+    handleDel(ev){
+      const ul = event.target; //why redefine?
+      ul.removeChild(ul.childNodes[0]);
+      
+    }
+
+
 }
 
 const app = new App();
