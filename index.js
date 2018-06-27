@@ -11,14 +11,23 @@ function changeHeadingText (){
     if(i > 0) i--;
 }
 
-function makeInputtedText(){
-    const stone= document.querySelector('.stone1').value;
+function makeInputtedText(event){
+    event.preventDefault();  //should be first line
+    const f= event.target;
+    const stone= f.stone.value;
     headingToChange.textContent = stone;
-    const regex= /.*space.*|.*mind.*|.*time.*|.*reality.*|.*power.*|.*soul.*/i
-    event.preventDefault();
+    //create list
+    const item = document.createElement('li');
+    item.textContent = stone;
+    const list = document.querySelector('#trove');
+    list.appendChild(item);
+    //reveal hidden message if doesn't send a stone
+    const regex= /.*space.*|.*mind.*|.*time.*|.*reality.*|.*power.*|.*soul.*/i;
     if (!(regex.test(stone))){
-        headingToggleDisappear.classList.remove('hid')
+        headingToggleDisappear.classList.remove('hid');
     }
+
+    f.reset();
 }
 
 button.addEventListener('click', changeHeadingText);
