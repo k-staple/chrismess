@@ -27,7 +27,7 @@ class App {
         //listen on html that is there from beginning
         list.addEventListener('click', (ev) => {
           ev.preventDefault();
-          this.handleDel(ev);
+          this.handleDel(ev, list);
         });
     }
 
@@ -117,9 +117,9 @@ class App {
         f.stone.focus();
     }
 
-    handleDel(ev){
-      const ul = event.target; //why redefine?
-      ul.removeChild(ul.childNodes[0]);
+    handleDel(ev, ul){
+      const removableLi = event.target.parentElement; //why redefine?
+      ul.removeChild(removableLi);
       
     }
 
