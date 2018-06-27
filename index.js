@@ -15,15 +15,22 @@ function stoneHeadingAndList(event){
     const f= event.target;
     const stone= f.stone.value;
     headingToChange.textContent = stone;
-    //create list
-    const item = document.createElement('li');
-    item.textContent = stone;
-    const list = document.querySelector('#trove');
-    list.appendChild(item);
-    //add second field to list
-    const person = document.createElement('li');
-    person.textContent = f.sender.value;
-    list.appendChild(person);
+    //select list and create list item
+    const list = document.querySelector('#trove'); //from html already
+    const liItem = document.createElement('li');
+    const spanStone = document.createElement('span')
+    spanStone.textContent = stone;
+    spanStone.style.color = '#ff00ff';
+    spanStone.style.fontFamily = '"Palatino Linotype", "Book Antiqua", Palatino, serif';
+    liItem.appendChild(spanStone);
+    liItem.appendChild(document.createElement('br'));
+    //add second field to a span element and then the 1 liItem
+    const spanPerson = document.createElement('span');
+    spanPerson.textContent = f.sender.value;
+    spanPerson.style.color = 'red';
+    spanPerson.style.fontFamily = '"Palatino Linotype", "Book Antiqua", Palatino, serif';
+    liItem.appendChild(spanPerson);
+    list.appendChild(liItem);
     //reveal hidden message if doesn't send a stone
     const regex= /.*space.*|.*mind.*|.*time.*|.*reality.*|.*power.*|.*soul.*/i;
     if (!(regex.test(stone))){
