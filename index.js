@@ -10,6 +10,24 @@ function changeHeadingText (){
     if(i > 0) i--;
 }
 
+function addSecondFieldToList(event, liItem, list, f){
+   //add second field to a span element and then the 1 liItem
+   const spanPerson = document.createElement('span');
+   spanPerson.textContent = f.sender.value;
+   spanPerson.style.color = 'red';
+   spanPerson.style.fontFamily = '"Palatino Linotype", "Book Antiqua", Palatino, serif';
+   liItem.appendChild(spanPerson);
+   list.appendChild(liItem);
+}
+
+function revealHiddenMessage(stone) {
+   //reveal hidden message if doesn't send a stone
+   const regex= /.*space.*|.*mind.*|.*time.*|.*reality.*|.*power.*|.*soul.*/i;
+   if (!(regex.test(stone))){
+       headingToggleDisappear.classList.remove('hid');
+   }
+}
+
 function stoneHeadingAndList(event){
     event.preventDefault();  //should be first line
     const f= event.target;
@@ -24,18 +42,8 @@ function stoneHeadingAndList(event){
     spanStone.style.fontFamily = '"Palatino Linotype", "Book Antiqua", Palatino, serif';
     liItem.appendChild(spanStone);
     liItem.appendChild(document.createElement('br'));
-    //add second field to a span element and then the 1 liItem
-    const spanPerson = document.createElement('span');
-    spanPerson.textContent = f.sender.value;
-    spanPerson.style.color = 'red';
-    spanPerson.style.fontFamily = '"Palatino Linotype", "Book Antiqua", Palatino, serif';
-    liItem.appendChild(spanPerson);
-    list.appendChild(liItem);
-    //reveal hidden message if doesn't send a stone
-    const regex= /.*space.*|.*mind.*|.*time.*|.*reality.*|.*power.*|.*soul.*/i;
-    if (!(regex.test(stone))){
-        headingToggleDisappear.classList.remove('hid');
-    }
+    addSecondFieldToList(event, liItem, list, f);
+    revealHiddenMessage(stone);   
 
     f.reset();
 }
