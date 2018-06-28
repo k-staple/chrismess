@@ -1,3 +1,7 @@
 h1.hid {
     visibility: hidden;
 }
+
+.yesFav{
+    color: slateblue;
+}

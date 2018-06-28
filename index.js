@@ -27,7 +27,7 @@ class App {
         //listen on html that is there from beginning
         list.addEventListener('click', (ev) => {
           ev.preventDefault();
-          this.handleDel(ev, list);
+          this.handleListButtons(ev, list);
         });
     }
 
@@ -69,9 +69,13 @@ class App {
             item.appendChild(span); 
         });
 
+        const fav = document.createElement('button');
+        fav.textContent = 'Favorite';
+        fav.classList.add('fav');
         const del = document.createElement('button');
         del.textContent = 'Remove';
         del.classList.add('del');
+        item.appendChild(fav);
         item.appendChild(del);
 
         return item;
@@ -87,7 +91,7 @@ class App {
 
     handleSubmit(event, list){
         const f= event.target;
-        const stone = f.stone.value
+        const stone = f.stone.value;
         headingToChange.textContent = stone;
         const gift = {
             stone: stone,
@@ -117,21 +121,25 @@ class App {
         f.stone.focus();
     }
 
-    handleDel(ev, ul){
-      debugger;
-      const removableLi = event.target.parentElement; //why redefine?
-      ul.removeChild(removableLi);
-      //index of Obj in array then splice
-      //inspired by https://stackoverflow.com/questions/10557486/in-an-array-of-objects-fastest-way-to-find-the-index-of-an-object-whose-attribu
-      const i = record.findIndex( (element) => {
-          const clas = removableLi.childNodes[0].textContent;
-          if (element.stone === clas){
-              return element;
-          }
-      });
-      record.splice(i,1);
-    }
+    handleListButtons(ev, ul){
+      const parentLi = event.target.parentElement; //why redefine?
+      if (event.target.classList.contains('del')){
+        ul.removeChild(parentLi);
+        //index of Obj in array then splice
+        //inspired by https://stackoverflow.com/questions/10557486/in-an-array-of-objects-fastest-way-to-find-the-index-of-an-object-whose-attribu
+        const i = record.findIndex( (element) => {
+            const clas = parentLi.childNodes[0].textContent;
+            if (element.stone === clas){
+                return element;
+            }
+        });
+        record.splice(i,1);
+      }
+      if (event.target.classList.contains('fav')){
+          parentLi.childNodes[0].classList.toggle('yesFav');
+      }
 
+    }
 
 }
 
