@@ -118,15 +118,18 @@ class App {
     }
 
     handleDel(ev, ul){
+      debugger;
       const removableLi = event.target.parentElement; //why redefine?
       ul.removeChild(removableLi);
       //index of Obj in array then splice
       //inspired by https://stackoverflow.com/questions/10557486/in-an-array-of-objects-fastest-way-to-find-the-index-of-an-object-whose-attribu
-      record.forEach((obj)=> {
-        obj.forEach((prop) => {
-          console.log(prop);
-        });
+      const i = record.findIndex( (element) => {
+          const clas = removableLi.childNodes[0].textContent;
+          if (element.stone === clas){
+              return element;
+          }
       });
+      record.splice(i,1);
     }
 
 
