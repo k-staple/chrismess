@@ -93,14 +93,17 @@ class App {
         const f= event.target;
         const stone = f.stone.value;
         headingToChange.textContent = stone;
-        const gift = {
+        const allGiftInfo = {
             stone: stone,
             person: f.sender.value,
-            
+            favStatus: 0,
         }
-       
-        record.push(gift);
+        record.push(allGiftInfo);
 
+        const gift = {
+            stone: stone,
+            person: f.sender.value, 
+        }
         const item = this.renderItem(gift)  //CHANGE BELOW
 
         //select list and create list item
@@ -129,8 +132,8 @@ class App {
         //index of Obj in array then splice
         //inspired by https://stackoverflow.com/questions/10557486/in-an-array-of-objects-fastest-way-to-find-the-index-of-an-object-whose-attribu
         const i = record.findIndex( (element) => {
-            const clas = parentLi.childNodes[0].textContent;
-            if (element.stone === clas){
+            const stoneText = parentLi.childNodes[0].textContent;
+            if (element.stone === stoneText){
                 return element;
             }
         });
@@ -140,24 +143,16 @@ class App {
           parentLi.childNodes[0].classList.toggle('yesFav');
           parentLi.childNodes[1].classList.toggle('yeahFav');
           
-          //thought of recording favorites separately in array
-          const favItem = {
-              stone: parentLi.childNodes[0].textContent,
-              person: parentLi.childNodes[1].textContent,
-          };
+          //find yes/no status and negate
           const i = record.findIndex( (element) => {
-            if (Object.keys(element).includes('favorites')){
-                console.log('in')
-                return element;
+            const stoneText = parentLi.childNodes[0].textContent;
+            const personText = parentLi.childNodes[1].textContent;
+            if (element.stone === stoneText && element.person === personText){
+                element.favStatus = !element.favStatus;
             }
-          });
+        });
           
-          if (i=== -1) {
-              record.push({favorites: favItem});
-          } else {
-              console.log('here');
-          }
-      }
+      }  
 
     }
 
