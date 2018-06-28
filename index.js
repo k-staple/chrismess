@@ -137,6 +137,19 @@ class App {
       }
       if (event.target.classList.contains('fav')){
           parentLi.childNodes[0].classList.toggle('yesFav');
+          parentLi.childNodes[1].classList.toggle('yeahFav');
+          const favItem = {
+              stone: parentLi.childNodes[0].textContent,
+              person: parentLi.childNodes[1].textContent,
+          };
+          const i = record.findIndex( (element) => {
+            const clas = parentLi.childNodes[0].textContent;
+            if (element.stone === clas){
+                return element;
+            }
+          });
+          record.splice(i,1);
+          record.push({favorites: favItem});
       }
 
     }
