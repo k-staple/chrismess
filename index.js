@@ -96,6 +96,7 @@ class App {
         const gift = {
             stone: stone,
             person: f.sender.value,
+            
         }
        
         record.push(gift);
@@ -138,18 +139,24 @@ class App {
       if (event.target.classList.contains('fav')){
           parentLi.childNodes[0].classList.toggle('yesFav');
           parentLi.childNodes[1].classList.toggle('yeahFav');
+          
+          //thought of recording favorites separately in array
           const favItem = {
               stone: parentLi.childNodes[0].textContent,
               person: parentLi.childNodes[1].textContent,
           };
           const i = record.findIndex( (element) => {
-            const clas = parentLi.childNodes[0].textContent;
-            if (element.stone === clas){
+            if (Object.keys(element).includes('favorites')){
+                console.log('in')
                 return element;
             }
           });
-          record.splice(i,1);
-          record.push({favorites: favItem});
+          
+          if (i=== -1) {
+              record.push({favorites: favItem});
+          } else {
+              console.log('here');
+          }
       }
 
     }
