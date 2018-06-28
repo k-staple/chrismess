@@ -2,7 +2,6 @@ const button = document.querySelector('button');
 const headingToChange= document.querySelector('.whisper');
 const headingToggleDisappear = document.querySelector('.hid')
 
-const record = [];
 let i=10;
 
 function changeHeadingText (){
@@ -17,7 +16,7 @@ class App {
         const form= document.querySelector('form');
         const delButtons = document.querySelector('del');
         const list = document.querySelector('#trove'); //from html already
-        
+        this.record = [];
         
         form.addEventListener('submit', (ev) => {
           ev.preventDefault();
@@ -98,7 +97,7 @@ class App {
             person: f.sender.value,
             favStatus: 0,
         }
-        record.push(allGiftInfo);
+        this.record.push(allGiftInfo);
 
         const gift = {
             stone: stone,
@@ -137,14 +136,14 @@ class App {
                 return element;
             }
         });
-        record.splice(i,1);
+        this.record.splice(i,1);
       }
       if (event.target.classList.contains('fav')){
           parentLi.childNodes[0].classList.toggle('yesFav');
           parentLi.childNodes[1].classList.toggle('yeahFav');
           
           //find yes/no status and negate
-          const i = record.findIndex( (element) => {
+          const i = this.record.findIndex( (element) => {
             const stoneText = parentLi.childNodes[0].textContent;
             const personText = parentLi.childNodes[1].textContent;
             if (element.stone === stoneText && element.person === personText){
