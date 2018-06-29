@@ -44,7 +44,14 @@ class App {
     list.appendChild(liItem);
     }
     */
+    save(){
+        //store flicks array in local storage
+        localStorage.setItem("arrRecord", JSON.stringify(this.record));
+    }
 
+    load(){
+        this.record = JSON.parse(localStorage.getItem("arrRecord")) || [];
+    }
 
     renderProperty(name, value) {
         //creates span element with class equal to name
@@ -72,7 +79,8 @@ class App {
         fav.textContent = 'Favorite';
         fav.classList.add('fav');
         const del = document.createElement('button');
-        del.textContent = 'Remove';
+        del.textContent = "Remove"
+        //innerHTML = <i class="fas fa-trash-alt" title="Remove gift"></i>; //make icon
         del.classList.add('del');
         item.appendChild(fav);
         item.appendChild(del);
@@ -85,24 +93,29 @@ class App {
         const regex= /.*space.*|.*mind.*|.*time.*|.*reality.*|.*power.*|.*soul.*/i;
             if (!(regex.test(stone))){
                 headingToggleDisappear.classList.remove('hid');
+                headingToggleDisappear.classList.add('angry');
             }
     }
+
+    //NEW
+    /*addGift(gift){
+        //add to array in local storage
+        this.flicks.
+    }
+    */
 
     handleSubmit(event, list){
         const f= event.target;
         const stone = f.stone.value;
         headingToChange.textContent = stone;
-        const allGiftInfo = {
+        const gift = {
             stone: stone,
             person: f.sender.value,
             favStatus: 0,
         }
-        this.record.push(allGiftInfo);
-
-        const gift = {
-            stone: stone,
-            person: f.sender.value, 
-        }
+        this.record.push(gift);
+        this.save();
+        
         const item = this.renderItem(gift)  //CHANGE BELOW
 
         //select list and create list item
@@ -124,13 +137,13 @@ class App {
         f.stone.focus();
     }
 
-    handleListButtons(ev, ul){
+    handleListButtons(event, ul){
       const parentLi = event.target.parentElement; //why redefine?
       if (event.target.classList.contains('del')){
         ul.removeChild(parentLi);
         //index of Obj in array then splice
-        //inspired by https://stackoverflow.com/questions/10557486/in-an-array-of-objects-fastest-way-to-find-the-index-of-an-object-whose-attribu
-        const i = record.findIndex( (element) => {
+        //CAN DO indexOf IF PASS IN OBJ
+        const i = this.record.findIndex( (element) => {
             const stoneText = parentLi.childNodes[0].textContent;
             if (element.stone === stoneText){
                 return element;
@@ -138,7 +151,7 @@ class App {
         });
         this.record.splice(i,1);
       }
-      if (event.target.classList.contains('fav')){
+      if (event.target.classList.contains('fav')){ //fav button pressed
           parentLi.childNodes[0].classList.toggle('yesFav');
           parentLi.childNodes[1].classList.toggle('yeahFav');
           

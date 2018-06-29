@@ -1,11 +1,27 @@
-h1.hid {
+h1.hid, .favStatus {
     visibility: hidden;
 }
 
+.angry {
+    color: red;
+    
+}
+
 .yesFav{
-    color: slateblue;
+    color: navajowhite;
 }
 
 .yeahFav {
     color: plum;
+}
+
+.stone{
+    fontFamily: '"Palatino Linotype", "Book Antiqua", Palatino, serif';
+}
+
+body {
+    background-image: url(Thanos_collecting_stones.jpg);
+    background-size: cover;
+    background-color: gray;
+    color: white;
 }
