@@ -31,19 +31,6 @@ class App {
     }
 
     
-    
-
-    /*
-    function addSecondFieldToList(event, liItem, list, f){
-    //add second field to a span element and then the 1 liItem
-    const spanPerson = document.createElement('span');
-    spanPerson.textContent = f.sender.value;
-    spanPerson.style.color = 'red';
-    spanPerson.style.fontFamily = '"Palatino Linotype", "Book Antiqua", Palatino, serif';
-    liItem.appendChild(spanPerson);
-    list.appendChild(liItem);
-    }
-    */
     save(){
         //store flicks array in local storage
         localStorage.setItem("arrRecord", JSON.stringify(this.record));
@@ -94,7 +81,9 @@ class App {
             if (!(regex.test(stone))){
                 headingToggleDisappear.classList.remove('hid');
                 headingToggleDisappear.classList.add('angry');
+                return 0;
             }
+        return 1; //correct submission
     }
 
     //NEW
@@ -113,25 +102,16 @@ class App {
             person: f.sender.value,
             favStatus: 0,
         }
-        this.record.push(gift);
-        this.save();
-        
-        const item = this.renderItem(gift)  //CHANGE BELOW
 
-        //select list and create list item
-        
-        list.appendChild(item)
+        if (this.revealHiddenMessage(stone)){
+            this.record.push(gift);
+            this.save();
+            
+            const item = this.renderItem(gift)   
+            
+            list.appendChild(item)
 
-    /* const liItem = document.createElement('li');
-        const spanStone = document.createElement('span')
-        spanStone.textContent = stone;
-        spanStone.style.color = '#ff00ff';
-        spanStone.style.fontFamily = '"Palatino Linotype", "Book Antiqua", Palatino, serif';
-        liItem.appendChild(spanStone);
-        liItem.appendChild(document.createElement('br'));
-        addSecondFieldToList(event, liItem, list, f); */
-    
-        this.revealHiddenMessage(stone);   
+        }
 
         f.reset();
         f.stone.focus();
