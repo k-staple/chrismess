@@ -5,8 +5,13 @@ const headingToggleDisappear = document.querySelector('.hid')
 let i=10;
 
 function changeHeadingText (){
+        if (headingToChange.classList.contains('treasure')){
+            headingToChange.classList.remove('treasure')
+        }
+        headingToChange.classList.add('countdown');
         headingToChange.textContent = i;
         if(i > 0) i--;
+        
 }
 
 
@@ -96,6 +101,7 @@ class App {
     handleSubmit(event, list){
         const f= event.target;
         const stone = f.stone.value;
+        headingToChange.classList.add('treasure');
         headingToChange.textContent = stone;
         const gift = {
             stone: stone,
