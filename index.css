@@ -28,6 +28,8 @@ https://www.w3schools.com/howto/howto_css_shake_image.asp */
     color: orangered;
 }
 
+/* font-outline hack https://wpshout.com/quick-guides/create-text-outline-css/ */
+
 .treasure {
     color:goldenrod;
     text-shadow:
